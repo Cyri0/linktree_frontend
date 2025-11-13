@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { loginUser } from "../services/publicApi"
+import { loginUser } from "../services/publicAPI"
 
 const Login = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-
+  
   return (
     <div>
         <label>username<br/>

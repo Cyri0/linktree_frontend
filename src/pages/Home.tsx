@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react"
 import { SlugContext } from "../context/SlugContextProvider"
 import UserCard from "../components/UserCard"
 import { getUserData } from "../services/protectedAPI"
-import NewUrlComponent from "../components/NewUrlComponent"
 
 const Home = () => {
   const {slugs} = useContext(SlugContext)
@@ -14,7 +13,6 @@ const Home = () => {
   return (
     <main>
         <h1>Link 🌳</h1>
-        <NewUrlComponent/>
         {slugs.map(slug => <UserCard {...slug} />)}
     </main>
   )

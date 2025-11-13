@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const BASE_URL = "https://thjj2rgx-8000.euw.devtunnels.ms"
+export const BASE_URL = "https://pns0tn0c-8000.euw.devtunnels.ms"
 
 type UserLink = {
     id: number,
