@@ -64,3 +64,12 @@ export async function deleteURL(id: number){
         console.log(error);
     }
 }
+
+export async function editURL(id: number, url?: string, title?:string){
+    try{
+        const response = await protectedAPI.patch(`/api/links/${id}/`,{url, title})
+        return response.data
+    } catch(error){
+        console.log(error);
+    }
+}
