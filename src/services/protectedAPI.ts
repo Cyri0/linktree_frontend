@@ -11,6 +11,33 @@ protectedAPI.interceptors.request.use(config =>{
     return config;
 })
 
+protectedAPI.interceptors.response.use(
+    (response) => {return response},
+    async (error) => {
+        const originalRequest = error.config
+        
+        if(error.response?.status === 401 && !originalRequest.retryRequest){
+            originalRequest.retryRequest = true
+            try {
+                const refreshToken = localStorage.getItem("refresh")
+                const response = await axios.post(BASE_URL + "/api/accounts/token/refresh/", 
+                    {refresh: refreshToken})
+                const newAccessToken = response.data.access
+                originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`
+                localStorage.setItem("access", newAccessToken)
+                console.log("Access token updated!");
+                
+                return protectedAPI(originalRequest)
+            } catch (error) {
+                console.log(error);
+                localStorage.clear()
+            }
+        }
+        return Promise.reject(error)
+    }
+)
+
+
 export async function getUserData(){   
     try {
         const response = await protectedAPI.get("/api/accounts/me/")
@@ -22,7 +49,7 @@ export async function getUserData(){
 
 export async function createNewURL(url: string, title: string){
     try {
-        const response = await protectedAPI.post("/api/links/",{url, title})
+        const response = await protectedAPI.post("/api/links/",{url, title})      
         return response.data
     } catch (error) {
         console.log(error);
