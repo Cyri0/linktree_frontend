@@ -15,7 +15,7 @@ const UserPage = () => {
   },[])
   
   return (
-    <div>
+    <div className="userPage">
         <h1>Ez itt {links?.display_name} oldala!</h1>
         {ctx && ctx.authUser.username === username && <NewUrlComponent />}
         <ul>

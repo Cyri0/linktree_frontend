@@ -7,7 +7,9 @@ const EditUrlComponent = (props: {id:number, oldUrl: string, oldTitle: string}) 
   
   const saveEdited = (e:FormEvent) => {
     e.preventDefault()
-    editURL(props.id, url, title)
+    editURL(props.id, url, title).then(res => {
+      
+    })
   }
 
   return (
